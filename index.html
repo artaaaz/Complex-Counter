@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Complex Counter</title>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+
+        function HomePage() {
+            const [likes, setLikes] = React.useState(0);
+
+            function handlePlus() {
+                if (likes < 10) {
+                    setLikes(likes + 1);
+                }
+            }
+            function handleMins() {
+                if (likes > -10) {
+                    setLikes(likes - 1);
+                }
+            }
+            function handleReset() {
+                if (likes === 10 || likes === -10) {
+                    setLikes(0);
+                }
+            }
+
+            return (
+                <>
+                    <div className="flex">
+                        <button onClick={handleMins} disabled={likes <= -10}> - </button>
+                        {(likes === 10 || likes === -10) ? "done!" : likes}
+                        <button onClick={handlePlus} disabled={likes >= 10}> + </button>
+                    </div>
+                    <button onClick={handleReset} disabled={likes !== 10 && likes !== -10}> reset </button>
+                </>
+            );
+        }
+        root.render(<HomePage />);
+    </script>
+
+</body>
+<style>
+    .flex {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+</style>
+
+</html>
